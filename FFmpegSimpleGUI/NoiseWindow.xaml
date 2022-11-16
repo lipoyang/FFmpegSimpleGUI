@@ -1,0 +1,35 @@
+﻿<Window x:Class="FFmpegSimpleGUI.NoiseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FFmpegSimpleGUI"
+        mc:Ignorable="d"
+        Title="ノイズ除去オプション" Height="260" Width="360" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="buttonCancel" Content="キャンセル" HorizontalAlignment="Left" Margin="28,188,0,0" VerticalAlignment="Top" Width="75" Click="buttonCancel_Click" TabIndex="4"/>
+        <Button x:Name="buttonOK" Content="OK" HorizontalAlignment="Left" Margin="269,188,0,0" VerticalAlignment="Top" Width="75" Click="buttonOK_Click" RenderTransformOrigin="1.16,1.381" TabIndex="5"/>
+        <Label Content="参照信号の時間差[サンプル]" HorizontalAlignment="Left" Margin="28,38,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.557,-0.702"/>
+        <Label Content="フィルタ次数" HorizontalAlignment="Left" Margin="28,70,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.557,-0.702"/>
+        <Label Content="漏れ係数" HorizontalAlignment="Left" Margin="28,101,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.557,-0.702"/>
+        <Label Content="適応ステップサイズ ( μ )" HorizontalAlignment="Left" Margin="28,137,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.557,-0.702"/>
+        <TextBox x:Name="textDelay" HorizontalAlignment="Left" Height="23" Margin="203,41,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.824,0.377" TabIndex="0">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="-2.291"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-0.347"/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <TextBox x:Name="textOrder" HorizontalAlignment="Left" Height="23" Margin="203,74,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TabIndex="1"/>
+        <TextBox x:Name="textLeak" HorizontalAlignment="Left" Height="23" Margin="203,105,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TabIndex="2"/>
+        <TextBox x:Name="textMu" HorizontalAlignment="Left" Height="23" Margin="203,141,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TabIndex="3"/>
+        <Label Content="LMSアルゴリズムのパラメータ" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.557,-0.702"/>
+
+    </Grid>
+</Window>
