@@ -58,15 +58,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="FFmpegProcess.cs" />
-    <Compile Include="NoiseWindow.xaml.cs">
+    <Compile Include="Class\FFmpegProcess.cs" />
+    <Compile Include="Window\NoiseWindow.xaml.cs">
       <DependentUpon>NoiseWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OptionWindow.xaml.cs">
+    <Compile Include="Window\OptionWindow.xaml.cs">
       <DependentUpon>OptionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PathInfo.cs" />
-    <Page Include="MainWindow.xaml">
+    <Compile Include="Class\PathInfo.cs" />
+    <Page Include="Window\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -74,16 +74,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FFmpegOption.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Class\FFmpegOption.cs" />
+    <Compile Include="Window\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="NoiseWindow.xaml">
+    <Page Include="Window\NoiseWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="OptionWindow.xaml">
+    <Page Include="Window\OptionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -116,11 +116,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icon\next.png" />
-    <Resource Include="icon\pause.png" />
-    <Resource Include="icon\play.png" />
-    <Resource Include="icon\prev.png" />
-    <Resource Include="icon\stop.png" />
+    <Resource Include="Icon\next.png" />
+    <Resource Include="Icon\pause.png" />
+    <Resource Include="Icon\play.png" />
+    <Resource Include="Icon\prev.png" />
+    <Resource Include="Icon\stop.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

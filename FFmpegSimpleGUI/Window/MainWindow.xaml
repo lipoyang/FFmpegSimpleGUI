@@ -51,19 +51,19 @@
                     <CheckBox x:Name="checkShowOption" Content="コマンドを表示する" HorizontalAlignment="Left" Margin="28,312,0,0" VerticalAlignment="Top" Checked="checkShowOption_Checked" Unchecked="checkShowOption_Checked" TabIndex="28"/>
                     <Slider x:Name="slider" HorizontalAlignment="Left" Margin="28,188,0,0" VerticalAlignment="Top" Width="307" TabIndex="36" ValueChanged="slider_ValueChanged" PreviewMouseLeftButtonDown="slider_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="slider_PreviewMouseLeftButtonUp"/>
                     <Button x:Name="buttonPlay" HorizontalAlignment="Left" Margin="28,220,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="26" Click="buttonPlay_Click" Height="23" RenderTransformOrigin="0.679,2.229" TabIndex="31">
-                        <Image Source="icon\play.png"></Image>
+                        <Image Source="..\Icon\play.png"></Image>
                     </Button>
                     <Button x:Name="buttonPause" HorizontalAlignment="Left" Margin="59,220,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="26" Click="buttonPause_Click" Height="23" RenderTransformOrigin="2.849,0.685" TabIndex="32">
-                        <Image Source="icon\pause.png"></Image>
+                        <Image Source="..\Icon\pause.png"></Image>
                     </Button>
                     <Button x:Name="buttonPrevFrame" HorizontalAlignment="Left" Margin="135,220,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="26" Click="buttonPrevFrame_Click" Height="23" RenderTransformOrigin="2.849,0.685" TabIndex="34">
-                        <Image Source="icon\prev.png"></Image>
+                        <Image Source="..\Icon\prev.png"></Image>
                     </Button>
                     <Button x:Name="buttonNextFrame" HorizontalAlignment="Left" Margin="166,220,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="26" Click="buttonNextFrame_Click" Height="23" RenderTransformOrigin="2.849,0.685" TabIndex="35">
-                        <Image Source="icon\next.png"></Image>
+                        <Image Source="..\Icon\next.png"></Image>
                     </Button>
                     <Button x:Name="buttonStop" HorizontalAlignment="Left" Margin="90,220,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="26" Click="buttonStop_Click" Height="23" RenderTransformOrigin="2.849,0.685" TabIndex="33">
-                        <Image Source="icon\stop.png"></Image>
+                        <Image Source="..\Icon\stop.png"></Image>
                     </Button>
                     <Label x:Name="labelTime" Content="Label" HorizontalAlignment="Left" Margin="197,217,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.929,0.368" Width="176"/>
                     <Label x:Name="label2_Copy" Content="FPS" HorizontalAlignment="Left" Margin="538,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.929,0.368" Width="51"/>
