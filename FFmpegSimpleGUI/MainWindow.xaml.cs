@@ -262,6 +262,9 @@ namespace FFmpegSimpleGUI
             {
                 string[] paths = ((string[])e.Data.GetData(DataFormats.FileDrop));
                 textInputPath.Text = paths[0];
+
+                // 動画の表示
+                mediaElement_Init();
             }
         }
 
