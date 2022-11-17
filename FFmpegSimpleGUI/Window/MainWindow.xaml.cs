@@ -93,12 +93,6 @@ namespace FFmpegSimpleGUI
             progressBar.Visibility = Visibility.Collapsed;
             labelProgress.Visibility = Visibility.Collapsed;
 
-            // 連結の入力ファイル名グリッドの設定
-            // dataGrid.Columns[0].Width = 200;
-            // dataGrid.Columns[1].Width = 200;
-            // dataGrid.FontSize = 10;
-            // dataGrid.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
-
             // 動画の表示
             mediaElement.LoadedBehavior = MediaState.Manual;
             mediaElement.ScrubbingEnabled = true;

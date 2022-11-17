@@ -95,7 +95,12 @@
                     <Label x:Name="label4" Content="(全て同一コーデックの動画に限る)" HorizontalAlignment="Left" Margin="492.788,107,0,0" VerticalAlignment="Top" Grid.Column="1"/>
                     <Button x:Name="buttonConcat" Content="連結" HorizontalAlignment="Left" Margin="0,407,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="75" Click="buttonConcat_Click" Height="23" Grid.Column="1" TabIndex="7"/>
                     <DataGrid x:Name="dataGrid" Grid.Column="1" HorizontalAlignment="Left" Height="248" Margin="29,53,0,0" VerticalAlignment="Top" Width="403"
-                        AutoGenerateColumns="True" IsReadOnly="True" CanUserSortColumns="False" />
+                        AutoGenerateColumns="False" IsReadOnly="True" CanUserSortColumns="False" VerticalScrollBarVisibility="Visible" CanUserResizeRows="False" CanUserReorderColumns="False" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ファイル名" Binding="{Binding FileName}" Width="200"/>
+                            <DataGridTextColumn Header="フォルダ名" Binding="{Binding DirName}" Width="200"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
         </TabControl>
