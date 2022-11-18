@@ -327,7 +327,161 @@ namespace FFmpegSimpleGUI
             }
         }
 
-        // [変換] コマンド文字列をクリップボードにコピー
+        // [変換] フレームレート
+        private void checkFrameRate_Checked(object sender, RoutedEventArgs e)
+        {
+            bool check = (bool)checkFrameRate.IsChecked;
+            textFrameRate.IsEnabled = check;
+        }
+
+        // [変換] リサイズ
+        private void checkResize_Checked(object sender, RoutedEventArgs e)
+        {
+            bool check = (bool)checkResize.IsChecked;
+            if (check)
+            {
+                bool widthAuto  = (bool)checkWidthAuto.IsChecked;
+                bool heightAuto = (bool)checkHeightAuto.IsChecked;
+                // 幅自動と高さ自動は排他
+                checkWidthAuto.IsEnabled  = !heightAuto;
+                checkHeightAuto.IsEnabled = !widthAuto;
+                // 幅自動のとき幅無効、高さ自動のとき高さ無効
+                textWidth.IsEnabled  = !widthAuto;
+                textHeight.IsEnabled = !heightAuto;
+            }
+            else
+            {
+                checkWidthAuto.IsEnabled  = false;
+                checkHeightAuto.IsEnabled = false;
+                textWidth.IsEnabled       = false;
+                textHeight.IsEnabled      = false;
+            }
+            ShowCommandLine();
+        }
+
+        // [変換] 音量
+        private void checkVolume_Checked(object sender, RoutedEventArgs e)
+        {
+            bool check = (bool)checkVolume.IsChecked;
+            if (check)
+            {
+                bool volAuto = (bool)checkVolumeAuto.IsChecked;
+                bool noSound = (bool)checkNoSound.IsChecked;
+                // 自動調整と音声無しは排他
+                checkVolumeAuto.IsEnabled = !noSound;
+                checkNoSound.IsEnabled    = !volAuto;
+                // 自動調整か音声無しなら音量無効
+                textVolume.IsEnabled = !(noSound || volAuto);
+            }
+            else
+            {
+                checkVolumeAuto.IsEnabled = false;
+                checkNoSound.IsEnabled    = false;
+                textVolume.IsEnabled      = false;
+            }
+            ShowCommandLine();
+        }
+
+        // [変換] 切り出し
+        private void checkCut_Checked(object sender, RoutedEventArgs e)
+        {
+            bool check = (bool)checkCut.IsChecked;
+            if (check)
+            {
+                // 「最初から」と「終了 or 長さ」は有効
+                checkFromFirst.IsEnabled = true;
+                radioEndPos.IsEnabled    = true;
+                radioLength.IsEnabled    = true;
+
+                bool endSelect = (bool)radioEndPos.IsChecked;
+                bool fromFirst = (bool)checkFromFirst.IsChecked;
+                bool toLast    = (bool)checkToLast.IsChecked;
+
+                // 「最初から」なら 開始時刻は無効
+                textStartPos.IsEnabled = !fromFirst;
+
+                if (endSelect) // 「終了」の場合
+                {
+                    // 「最後まで」は有効、最後までなら終了時刻無効
+                    checkToLast.IsEnabled = true;
+                    textEndPos.IsEnabled = !toLast;
+                    // 長さ指定無効
+                    textLength.IsEnabled = false;
+                }
+                else // 「長さ」の場合
+                {
+                    // 「最後まで」と終了時刻無効
+                    checkToLast.IsEnabled = false;
+                    textEndPos.IsEnabled  = false;
+                    // 長さ指定有効
+                    textLength.IsEnabled = true;
+                }
+            }
+            else
+            {
+                radioEndPos.IsEnabled    = false;
+                radioLength.IsEnabled    = false;
+                checkFromFirst.IsEnabled = false;
+                checkToLast.IsEnabled    = false;
+                textStartPos.IsEnabled   = false;
+                textEndPos.IsEnabled     = false;
+                textLength.IsEnabled     = false;
+            }
+            ShowCommandLine();
+        }
+
+        // [変換] ノイズ除去
+        private void checkNoise_Checked(object sender, RoutedEventArgs e)
+        {
+            bool check = (bool)checkNoise.IsChecked;
+            buttonNoise.IsEnabled = check;
+            ShowCommandLine();
+        }
+
+        // [変換] 追加オプション
+        private void checkOption_Checked(object sender, RoutedEventArgs e)
+        {
+            bool check = (bool)checkOption.IsChecked;
+            buttonOption.IsEnabled = check;
+            ShowCommandLine();
+        }
+
+        // [変換] コマンドライン表示の有効無効切り替え
+        private void checkShowCommand_Checked(object sender, RoutedEventArgs e)
+        {
+            if ((bool)checkShowCommand.IsChecked) {
+                this.Height = 600;
+                textCommand.Visibility = Visibility.Visible;
+                buttonCopy.IsEnabled = true;
+                ShowCommandLine();
+            } else {
+                this.Height = 530;
+                textCommand.Visibility = Visibility.Collapsed;
+                buttonCopy.IsEnabled = false;
+            }
+        }
+
+        // [変換] コマンドライン表示
+        private void ShowCommandLine()
+        {
+            var option = GetOption();
+            textCommand.Text = "ffmpeg.exe " + option.GetConvertOption();
+        }
+
+        // [変換] テキストボックス更新時のコマンドライン表示の更新
+        private void textBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            ShowCommandLine();
+        }
+        private void textBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                ShowCommandLine();
+            }
+        }
+
+        // [変換] コマンドライン文字列をクリップボードにコピー
         private void buttonCopy_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(textCommand.Text);
@@ -500,6 +654,12 @@ namespace FFmpegSimpleGUI
             }
             // それ以外はNG
             return false;
+        }
+
+        // [変換][連結] コンソール表示
+        private void checkConsole_Checked(object sender, RoutedEventArgs e)
+        {
+            ShowCommandLine(); // ここではコマンド表示の変更のみ
         }
 
         // [連結] パラメータチェック
@@ -694,166 +854,6 @@ namespace FFmpegSimpleGUI
                         MessageBox.Show(ffmpeg.GetErrorMessage());
                     }
                 }
-            }
-        }
-
-        // [変換] フレームレート
-        private void checkFrameRate_Checked(object sender, RoutedEventArgs e)
-        {
-            bool check = (bool)checkFrameRate.IsChecked;
-            textFrameRate.IsEnabled = check;
-        }
-
-        // [変換] リサイズ
-        private void checkResize_Checked(object sender, RoutedEventArgs e)
-        {
-            bool check = (bool)checkResize.IsChecked;
-            if (check)
-            {
-                bool widthAuto  = (bool)checkWidthAuto.IsChecked;
-                bool heightAuto = (bool)checkHeightAuto.IsChecked;
-                // 幅自動と高さ自動は排他
-                checkWidthAuto.IsEnabled  = !heightAuto;
-                checkHeightAuto.IsEnabled = !widthAuto;
-                // 幅自動のとき幅無効、高さ自動のとき高さ無効
-                textWidth.IsEnabled  = !widthAuto;
-                textHeight.IsEnabled = !heightAuto;
-            }
-            else
-            {
-                checkWidthAuto.IsEnabled  = false;
-                checkHeightAuto.IsEnabled = false;
-                textWidth.IsEnabled       = false;
-                textHeight.IsEnabled      = false;
-            }
-            ShowCommandLine();
-        }
-
-        // [変換] 音量
-        private void checkVolume_Checked(object sender, RoutedEventArgs e)
-        {
-            bool check = (bool)checkVolume.IsChecked;
-            if (check)
-            {
-                bool volAuto = (bool)checkVolumeAuto.IsChecked;
-                bool noSound = (bool)checkNoSound.IsChecked;
-                // 自動調整と音声無しは排他
-                checkVolumeAuto.IsEnabled = !noSound;
-                checkNoSound.IsEnabled    = !volAuto;
-                // 自動調整か音声無しなら音量無効
-                textVolume.IsEnabled = !(noSound || volAuto);
-            }
-            else
-            {
-                checkVolumeAuto.IsEnabled = false;
-                checkNoSound.IsEnabled    = false;
-                textVolume.IsEnabled      = false;
-            }
-            ShowCommandLine();
-        }
-
-        // [変換] 切り出し
-        private void checkCut_Checked(object sender, RoutedEventArgs e)
-        {
-            bool check = (bool)checkCut.IsChecked;
-            if (check)
-            {
-                // 「最初から」と「終了 or 長さ」は有効
-                checkFromFirst.IsEnabled = true;
-                radioEndPos.IsEnabled    = true;
-                radioLength.IsEnabled    = true;
-
-                bool endSelect = (bool)radioEndPos.IsChecked;
-                bool fromFirst = (bool)checkFromFirst.IsChecked;
-                bool toLast    = (bool)checkToLast.IsChecked;
-
-                // 「最初から」なら 開始時刻は無効
-                textStartPos.IsEnabled = !fromFirst;
-
-                if (endSelect) // 「終了」の場合
-                {
-                    // 「最後まで」は有効、最後までなら終了時刻無効
-                    checkToLast.IsEnabled = true;
-                    textEndPos.IsEnabled = !toLast;
-                    // 長さ指定無効
-                    textLength.IsEnabled = false;
-                }
-                else // 「長さ」の場合
-                {
-                    // 「最後まで」と終了時刻無効
-                    checkToLast.IsEnabled = false;
-                    textEndPos.IsEnabled  = false;
-                    // 長さ指定有効
-                    textLength.IsEnabled = true;
-                }
-            }
-            else
-            {
-                radioEndPos.IsEnabled    = false;
-                radioLength.IsEnabled    = false;
-                checkFromFirst.IsEnabled = false;
-                checkToLast.IsEnabled    = false;
-                textStartPos.IsEnabled   = false;
-                textEndPos.IsEnabled     = false;
-                textLength.IsEnabled     = false;
-            }
-            ShowCommandLine();
-        }
-
-        // [変換] ノイズ除去
-        private void checkNoise_Checked(object sender, RoutedEventArgs e)
-        {
-            bool check = (bool)checkNoise.IsChecked;
-            buttonNoise.IsEnabled = check;
-            ShowCommandLine();
-        }
-
-        // [変換] 追加オプション
-        private void checkOption_Checked(object sender, RoutedEventArgs e)
-        {
-            bool check = (bool)checkOption.IsChecked;
-            buttonOption.IsEnabled = check;
-            ShowCommandLine();
-        }
-
-        // [変換][連結] コンソール表示
-        private void checkConsole_Checked(object sender, RoutedEventArgs e)
-        {
-            ShowCommandLine(); // ここではコマンド表示の変更のみ
-        }
-
-        // [変換] コマンドライン表示の有効無効切り替え
-        private void checkShowCommand_Checked(object sender, RoutedEventArgs e)
-        {
-            if ((bool)checkShowCommand.IsChecked) {
-                this.Height = 600;
-                textCommand.Visibility = Visibility.Visible;
-                buttonCopy.IsEnabled = true;
-                ShowCommandLine();
-            } else {
-                this.Height = 530;
-                textCommand.Visibility = Visibility.Collapsed;
-                buttonCopy.IsEnabled = false;
-            }
-        }
-
-        // [変換] コマンドライン表示
-        private void ShowCommandLine()
-        {
-            var option = GetOption();
-            textCommand.Text = "ffmpeg.exe " + option.GetConvertOption();
-        }
-
-        // [変換] テキストボックス更新時のコマンドライン表示の更新
-        private void textBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            ShowCommandLine();
-        }
-        private void textBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.Enter)
-            {
-                ShowCommandLine();
             }
         }
 
