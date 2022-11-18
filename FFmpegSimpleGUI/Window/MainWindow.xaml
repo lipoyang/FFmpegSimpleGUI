@@ -48,8 +48,8 @@
                     <CheckBox x:Name="checkOption" Content="追加オプション" HorizontalAlignment="Left" Margin="373,389,0,0" VerticalAlignment="Top" Checked="checkOption_Checked" Unchecked="checkOption_Checked" TabIndex="25"/>
                     <Button x:Name="buttonOption" Content="設定" HorizontalAlignment="Left" Margin="467,389,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="75" Click="buttonOption_Click" Height="23" TabIndex="25"/>
                     <CheckBox x:Name="checkConsole" Content="コンソールを表示する" HorizontalAlignment="Left" Margin="28,279,0,0" VerticalAlignment="Top" Checked="checkConsole_Checked" Unchecked="checkConsole_Checked" TabIndex="27"/>
-                    <CheckBox x:Name="checkShowOption" Content="コマンドを表示する" HorizontalAlignment="Left" Margin="28,312,0,0" VerticalAlignment="Top" Checked="checkShowOption_Checked" Unchecked="checkShowOption_Checked" TabIndex="28"/>
-                    <Slider x:Name="slider" HorizontalAlignment="Left" Margin="28,188,0,0" VerticalAlignment="Top" Width="307" TabIndex="36" ValueChanged="slider_ValueChanged" PreviewMouseLeftButtonDown="slider_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="slider_PreviewMouseLeftButtonUp"/>
+                    <CheckBox x:Name="checkShowCommand" Content="コマンドを表示する" HorizontalAlignment="Left" Margin="28,312,0,0" VerticalAlignment="Top" Checked="checkShowCommand_Checked" Unchecked="checkShowCommand_Checked" TabIndex="28"/>
+                    <Slider x:Name="seekBar" HorizontalAlignment="Left" Margin="28,188,0,0" VerticalAlignment="Top" Width="307" TabIndex="36" ValueChanged="seekBar_ValueChanged" PreviewMouseLeftButtonDown="seekBar_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="seekBar_PreviewMouseLeftButtonUp"/>
                     <Button x:Name="buttonPlay" HorizontalAlignment="Left" Margin="28,220,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="26" Click="buttonPlay_Click" Height="23" RenderTransformOrigin="0.679,2.229" TabIndex="31">
                         <Image Source="..\Icon\play.png"></Image>
                     </Button>
@@ -65,7 +65,7 @@
                     <Button x:Name="buttonStop" HorizontalAlignment="Left" Margin="90,220,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="26" Click="buttonStop_Click" Height="23" RenderTransformOrigin="2.849,0.685" TabIndex="33">
                         <Image Source="..\Icon\stop.png"></Image>
                     </Button>
-                    <Label x:Name="labelTime" Content="Label" HorizontalAlignment="Left" Margin="197,217,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.929,0.368" Width="176"/>
+                    <Label x:Name="labelPlayTime" Content="Label" HorizontalAlignment="Left" Margin="197,217,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.929,0.368" Width="176"/>
                     <Label x:Name="label2_Copy" Content="FPS" HorizontalAlignment="Left" Margin="538,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.929,0.368" Width="51"/>
                     <Label x:Name="label2_Copy1" Content="幅" HorizontalAlignment="Left" Margin="457,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.929,0.368" Width="51"/>
                     <Label x:Name="label2_Copy2" Content="高さ" HorizontalAlignment="Left" Margin="457,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.929,0.368" Width="51"/>

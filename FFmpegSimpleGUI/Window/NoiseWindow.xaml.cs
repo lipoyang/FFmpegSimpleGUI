@@ -19,15 +19,16 @@ namespace FFmpegSimpleGUI
     /// </summary>
     public partial class NoiseWindow : Window
     {
-        public string Delay { get; set; }
-        public string Order { get; set; }
-        public string Leak  { get; set; }
-        public string Mu    { get; set; }
+        public string Delay { get; set; } // 参照信号の時間差
+        public string Order { get; set; } // フィルタ次数
+        public string Leak  { get; set; } // 漏れ係数
+        public string Mu    { get; set; } // 適応ステップサイズ
 
         public NoiseWindow()
         {
             InitializeComponent();
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             textDelay.Text = Delay;

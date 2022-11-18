@@ -9,7 +9,7 @@ namespace FFmpegSimpleGUI
     // パス情報
     class PathInfo
     {
-        public string FileName { get; set; }
-        public string DirName { get; set; }
+        public string FileName { get; set; } // ファイル名
+        public string DirName { get; set; } // ディレクトリ名
     }
 }

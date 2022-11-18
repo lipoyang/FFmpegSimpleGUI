@@ -25,46 +25,47 @@ namespace FFmpegSimpleGUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        // 設定ファイル名
+        const string SettingFile = "setting.json";
+
         // ファイルフィルタ
         const string FileFilter = 
             "MP4ファイル|*.mp4|MOVファイル|*.mov|WMVファイル|*.wmv|AVIファイル|*.avi|全てのファイル|*.*";
-        // 設定ファイル名
-        const string SettingFile = "setting.json";
 
         // ファイルフィルタの選択インデックス
         private int FilterIndex = 0;
 
-        // 追加オプション
+        // [変換] 追加オプション
         private string AdditionalOption = "";
-        // ノイズ除去詳細オプション
+        
+        // [変換] ノイズ除去詳細オプション
         private string LmsDelay = "";
         private string LmsOrder = "";
         private string LmsLeak = "";
         private string LmsMu = "";
 
-        // 「再生」用タイマ
+        // [再生] タイマ
         private DispatcherTimer TickTimer;
-        // 「再生」シークバー操作中フラグ
-        private bool SeekBarIsDragging = false;
-        private bool isPlaying = false;
-        private bool wasPlaying = false;
 
-        // ファイルパス情報 (「連結」の入力ファイル名のグリッド用)
+        // [再生] フラグ類
+        private bool isSeekBarDragging = false; // シークバー操作中か
+        private bool isPlaying  = false; // 再生中か
+        private bool wasPlaying = false; // シークバー操作前に再生中だったか
+
+        // [連結] ファイルパス情報 (入力ファイル名のグリッド用)
         private ObservableCollection<PathInfo> PathInfoList = new ObservableCollection<PathInfo>();
 
         public MainWindow()
         {
             InitializeComponent();
 
-            // 「連結」の入力ファイル名のグリッド用データを設定
+            // [連結] 入力ファイル名のグリッド用データを
             dataGrid.ItemsSource = PathInfoList;
 
-            // 「再生」用タイマ
+            // [再生] タイマの設定
             TickTimer = new DispatcherTimer();
-            TickTimer.Interval = TimeSpan.FromMilliseconds(200);
+            TickTimer.Interval = TimeSpan.FromMilliseconds(200); // 0.2秒周期
             TickTimer.Tick += new EventHandler(TickTimer_Tick);
-
-            labelTime.Content = "";
         }
 
         // 起動時
@@ -74,7 +75,7 @@ namespace FFmpegSimpleGUI
             var option = FFmpegOption.Load(SettingFile);
             SetOption(option);
 
-            // ハンドラの追加
+            // [変換] ハンドラの追加
             TextBox[] textBoxes = new TextBox[9];
             textBoxes[0] = textInputPath;
             textBoxes[1] = textOutputPath;
@@ -89,11 +90,14 @@ namespace FFmpegSimpleGUI
                 textbox.LostFocus += textBox_LostFocus;
                 textbox.KeyDown   += textBox_KeyDown;
             }
-            // プログレスバーは非表示
+            // [変換] プログレスバーは非表示
             progressBar.Visibility = Visibility.Collapsed;
             labelProgress.Visibility = Visibility.Collapsed;
 
-            // 動画の表示
+            // [再生] 再生時間表示をクリア
+            labelPlayTime.Content = "";
+
+            // [再生] 動画の表示
             mediaElement.LoadedBehavior = MediaState.Manual;
             mediaElement.ScrubbingEnabled = true;
             if(textInputPath.Text != "")
@@ -151,7 +155,7 @@ namespace FFmpegSimpleGUI
             // コンソール表示
             checkConsole.IsChecked    = option.ShowConsole;
             // オプション表示
-            checkShowOption.IsChecked = option.ShowOption;
+            checkShowCommand.IsChecked = option.ShowCommand;
             // 連結
             textOutputPath2.Text = option.OutputPath2;
             checkNotReencode.IsChecked = option.NotReencode;
@@ -164,7 +168,7 @@ namespace FFmpegSimpleGUI
             checkNoise_Checked(null, null);
             checkOption_Checked(null, null);
             checkConsole_Checked(null, null);
-            checkShowOption_Checked(null, null);
+            checkShowCommand_Checked(null, null);
         }
 
         // オプションを画面から取得
@@ -209,7 +213,7 @@ namespace FFmpegSimpleGUI
             // コンソール表示
             option.ShowConsole = (bool)checkConsole.IsChecked;
             // オプション表示
-            option.ShowOption = (bool)checkShowOption.IsChecked;
+            option.ShowCommand = (bool)checkShowCommand.IsChecked;
             // 連結
             option.OutputPath2 = textOutputPath2.Text;
             option.NotReencode = (bool)checkNotReencode.IsChecked;
@@ -217,7 +221,7 @@ namespace FFmpegSimpleGUI
             return option;
         }
 
-        // 入力ファイル選択
+        // [変換] 入力ファイル選択
         private void buttonInputPath_Click(object sender, RoutedEventArgs e)
         {
             string path = textInputPath.Text;
@@ -244,6 +248,8 @@ namespace FFmpegSimpleGUI
                 mediaElement_Init();
             }
         }
+
+        // [変換] 入力ファイルのドラッグ＆ドロップ
         private void textInputPath_DragOver(object sender, DragEventArgs e)
         {
             e.Effects = (e.Data.GetDataPresent(DataFormats.FileDrop)) ?
@@ -262,7 +268,7 @@ namespace FFmpegSimpleGUI
             }
         }
 
-        // 出力ファイル選択
+        // [変換] 出力ファイル選択
         private void buttonOutputPath_Click(object sender, RoutedEventArgs e)
         {
             string pathOutput = textOutputPath.Text;
@@ -291,7 +297,7 @@ namespace FFmpegSimpleGUI
             }
         }
 
-        // ノイズ除去詳細設定
+        // [変換] ノイズ除去詳細設定
         private void buttonNoise_Click(object sender, RoutedEventArgs e)
         {
             var form = new NoiseWindow();
@@ -308,7 +314,7 @@ namespace FFmpegSimpleGUI
             }
         }
 
-        // 追加オプション設定
+        // [変換] 追加オプション設定
         private void buttonOption_Click(object sender, RoutedEventArgs e)
         {
             var form = new OptionWindow();
@@ -321,13 +327,13 @@ namespace FFmpegSimpleGUI
             }
         }
 
-        // コピー
+        // [変換] コマンド文字列をクリップボードにコピー
         private void buttonCopy_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(textCommand.Text);
         }
 
-        // 変換
+        // [変換] 変換処理
         private async void buttonConvert_Click(object sender, RoutedEventArgs e)
         {
             // パラメータチェック
@@ -465,6 +471,8 @@ namespace FFmpegSimpleGUI
             }
             return true;
         }
+
+        // [変換] 時間指定文字列のチェック
         private bool CheckTimeString(string str)
         {
             // 整数値の秒数に換算できるならOK
@@ -535,7 +543,7 @@ namespace FFmpegSimpleGUI
             return true;
         }
 
-        // [連結] 前へ
+        // [連結] 選択中の動画を前へ
         private void buttonBefore_Click(object sender, RoutedEventArgs e)
         {
             int index = dataGrid.SelectedIndex;
@@ -551,7 +559,7 @@ namespace FFmpegSimpleGUI
             }
         }
 
-        // [連結] 後へ
+        // [連結] 選択中の動画を後へ
         private void buttonAfter_Click(object sender, RoutedEventArgs e)
         {
             int index = dataGrid.SelectedIndex;
@@ -567,7 +575,7 @@ namespace FFmpegSimpleGUI
             }
         }
 
-        // [連結] 追加
+        // [連結] 動画の追加
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFileDialog();
@@ -592,7 +600,7 @@ namespace FFmpegSimpleGUI
             }
         }
 
-        // [連結] 削除
+        // [連結] 動画の削除
         private void buttonDel_Click(object sender, RoutedEventArgs e)
         {
             int index = dataGrid.SelectedIndex;
@@ -603,7 +611,7 @@ namespace FFmpegSimpleGUI
             }
         }
 
-        // [連結] 入力ファイルのドラッグ＆ドロップ
+        // [連結] 動画ファイルのドラッグ＆ドロップ
         private void dataGrid_PreviewDragOver(object sender, DragEventArgs e)
         {
             e.Effects = (e.Data.GetDataPresent(DataFormats.FileDrop)) ?
@@ -648,7 +656,7 @@ namespace FFmpegSimpleGUI
             }
         }
 
-        // [連結] 連結
+        // [連結] 連結処理
         private async void buttonConcat_Click(object sender, RoutedEventArgs e)
         {
             // パラメータチェック
@@ -689,14 +697,14 @@ namespace FFmpegSimpleGUI
             }
         }
 
-        // フレームレート
+        // [変換] フレームレート
         private void checkFrameRate_Checked(object sender, RoutedEventArgs e)
         {
             bool check = (bool)checkFrameRate.IsChecked;
             textFrameRate.IsEnabled = check;
         }
 
-        // リサイズ
+        // [変換] リサイズ
         private void checkResize_Checked(object sender, RoutedEventArgs e)
         {
             bool check = (bool)checkResize.IsChecked;
@@ -721,7 +729,7 @@ namespace FFmpegSimpleGUI
             ShowCommandLine();
         }
 
-        // 音量
+        // [変換] 音量
         private void checkVolume_Checked(object sender, RoutedEventArgs e)
         {
             bool check = (bool)checkVolume.IsChecked;
@@ -744,7 +752,7 @@ namespace FFmpegSimpleGUI
             ShowCommandLine();
         }
 
-        // 切り出し
+        // [変換] 切り出し
         private void checkCut_Checked(object sender, RoutedEventArgs e)
         {
             bool check = (bool)checkCut.IsChecked;
@@ -792,7 +800,7 @@ namespace FFmpegSimpleGUI
             ShowCommandLine();
         }
 
-        // ノイズ除去
+        // [変換] ノイズ除去
         private void checkNoise_Checked(object sender, RoutedEventArgs e)
         {
             bool check = (bool)checkNoise.IsChecked;
@@ -800,7 +808,7 @@ namespace FFmpegSimpleGUI
             ShowCommandLine();
         }
 
-        // 追加オプション
+        // [変換] 追加オプション
         private void checkOption_Checked(object sender, RoutedEventArgs e)
         {
             bool check = (bool)checkOption.IsChecked;
@@ -808,16 +816,16 @@ namespace FFmpegSimpleGUI
             ShowCommandLine();
         }
 
-        // コンソール表示
+        // [変換][連結] コンソール表示
         private void checkConsole_Checked(object sender, RoutedEventArgs e)
         {
-            ShowCommandLine();
+            ShowCommandLine(); // ここではコマンド表示の変更のみ
         }
 
-        // オプション表示
-        private void checkShowOption_Checked(object sender, RoutedEventArgs e)
+        // [変換] コマンドライン表示の有効無効切り替え
+        private void checkShowCommand_Checked(object sender, RoutedEventArgs e)
         {
-            if ((bool)checkShowOption.IsChecked) {
+            if ((bool)checkShowCommand.IsChecked) {
                 this.Height = 600;
                 textCommand.Visibility = Visibility.Visible;
                 buttonCopy.IsEnabled = true;
@@ -828,13 +836,15 @@ namespace FFmpegSimpleGUI
                 buttonCopy.IsEnabled = false;
             }
         }
+
+        // [変換] コマンドライン表示
         private void ShowCommandLine()
         {
             var option = GetOption();
             textCommand.Text = "ffmpeg.exe " + option.GetConvertOption();
         }
 
-        // テキストボックス更新時のオプション表示の更新
+        // [変換] テキストボックス更新時のコマンドライン表示の更新
         private void textBox_LostFocus(object sender, RoutedEventArgs e)
         {
             ShowCommandLine();
@@ -847,7 +857,7 @@ namespace FFmpegSimpleGUI
             }
         }
 
-        // 再生
+        // [再生] 再生
         private void buttonPlay_Click(object sender, RoutedEventArgs e)
         {
             mediaElement.Play();
@@ -855,7 +865,7 @@ namespace FFmpegSimpleGUI
             isPlaying = true;
         }
 
-        // 一時停止
+        // [再生] 一時停止
         private void buttonPause_Click(object sender, RoutedEventArgs e)
         {
             TickTimer.Stop();
@@ -864,10 +874,10 @@ namespace FFmpegSimpleGUI
 
             // 時間表示
             TimeSpan ts = mediaElement.Position;
-            labelTime.Content = ts.ToString(@"hh\:mm\:ss\.ff");
+            labelPlayTime.Content = ts.ToString(@"hh\:mm\:ss\.ff");
         }
 
-        // 停止
+        // [再生] 停止
         private void buttonStop_Click(object sender, RoutedEventArgs e)
         {
             TickTimer.Stop();
@@ -876,11 +886,11 @@ namespace FFmpegSimpleGUI
 
             TimeSpan ts = TimeSpan.FromSeconds(0);
             mediaElement.Position = ts;
-            labelTime.Content = ts.ToString(@"hh\:mm\:ss\.ff");
-            slider.Value = 0;
+            labelPlayTime.Content = ts.ToString(@"hh\:mm\:ss\.ff");
+            seekBar.Value = 0;
         }
 
-        // コマ戻し
+        // [再生] コマ戻し
         private void buttonPrevFrame_Click(object sender, RoutedEventArgs e)
         {
             if (isPlaying) return;
@@ -892,10 +902,10 @@ namespace FFmpegSimpleGUI
             mediaElement.Position = ts;
 
             // 時間表示
-            labelTime.Content = ts.ToString(@"hh\:mm\:ss\.ff");
+            labelPlayTime.Content = ts.ToString(@"hh\:mm\:ss\.ff");
         }
 
-        // コマ送り
+        // [再生] コマ送り
         private void buttonNextFrame_Click(object sender, RoutedEventArgs e)
         {
             if (isPlaying) return;
@@ -908,46 +918,46 @@ namespace FFmpegSimpleGUI
             mediaElement.Position = ts;
 
             // 時間表示
-            labelTime.Content = ts.ToString(@"hh\:mm\:ss\.ff");
+            labelPlayTime.Content = ts.ToString(@"hh\:mm\:ss\.ff");
         }
 
 
         // [再生] スライダ
-        private void slider_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void seekBar_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            SeekBarIsDragging = true; // シークバーのドラッグ開始
+            isSeekBarDragging = true; // シークバーのドラッグ開始
             wasPlaying = isPlaying;
             mediaElement.Pause();
         }
-        private void slider_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void seekBar_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            SeekBarIsDragging = false; // シークバーのドラッグ終了
+            isSeekBarDragging = false; // シークバーのドラッグ終了
             if (wasPlaying) mediaElement.Play();
         }
-        private void slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void seekBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (SeekBarIsDragging)
+            if (isSeekBarDragging)
             {
                 // 動画の秒数位置→シークバーの位置に設定
-                TimeSpan ts = TimeSpan.FromSeconds(slider.Value);
+                TimeSpan ts = TimeSpan.FromSeconds(seekBar.Value);
                 mediaElement.Position = ts;
 
                 // 時間表示
-                labelTime.Content = ts.ToString(@"hh\:mm\:ss\.ff");
+                labelPlayTime.Content = ts.ToString(@"hh\:mm\:ss\.ff");
             }
         }
 
-        // [再生]タイマーハンドラ
+        // [再生] タイマーハンドラ
         private void TickTimer_Tick(object sender, EventArgs e)
         {
             // シークバーの位置→動画の秒数位置に設定
-            slider.Value = mediaElement.Position.TotalSeconds;
+            seekBar.Value = mediaElement.Position.TotalSeconds;
 
             // 時間表示
-            labelTime.Content = mediaElement.Position.ToString(@"hh\:mm\:ss\.ff");
+            labelPlayTime.Content = mediaElement.Position.ToString(@"hh\:mm\:ss\.ff");
         }
 
-        // [再生]動画の初期表示
+        // [再生] 動画の初期表示
         private void mediaElement_Init()
         {
             mediaElement.Source = new Uri(textInputPath.Text, UriKind.Absolute);
@@ -955,7 +965,7 @@ namespace FFmpegSimpleGUI
             isPlaying = false;
 
             // 時間表示
-            labelTime.Content = mediaElement.Position.ToString(@"hh\:mm\:ss\.ff");
+            labelPlayTime.Content = mediaElement.Position.ToString(@"hh\:mm\:ss\.ff");
         }
         // [再生] 動画を開いたときに長さを取得してシークバーに設定
         private void mediaElement_MediaOpened(object sender, RoutedEventArgs e)
@@ -964,9 +974,9 @@ namespace FFmpegSimpleGUI
             {
                 // シークバーの長さは動画の秒数、1秒きざみで変化
                 TimeSpan ts = mediaElement.NaturalDuration.TimeSpan;
-                slider.Maximum = ts.TotalSeconds;
-                slider.SmallChange = 1;
-                slider.LargeChange = Math.Min(10, ts.TotalSeconds / 10);
+                seekBar.Maximum = ts.TotalSeconds;
+                seekBar.SmallChange = 1;
+                seekBar.LargeChange = Math.Min(10, ts.TotalSeconds / 10);
 
                 // おまじない
                 mediaElement.Play ();

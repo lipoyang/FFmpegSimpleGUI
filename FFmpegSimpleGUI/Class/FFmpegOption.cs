@@ -9,28 +9,28 @@ using System.Collections.ObjectModel; // ObservableCollection
 
 namespace FFmpegSimpleGUI
 {
-    // 変換オプション
+    // FFmpegのオプション
     class FFmpegOption
     {
-        // 入力パス
+        // [変換] 入力パス
         public string InputPath = "";
-        // 出力パス
+        // [変換] 出力パス
         public string OutputPath = "";
-        // フレームレート
+        // [変換] フレームレート
         public bool   FrameRateOption = false;
         public string FrameRate = "30";
-        // リサイズ
+        // [変換] リサイズ
         public bool ResizeOption = false;
         public string Width    = "1280";
         public string Height   = "720";
         public bool WidthAuto  = false;
         public bool HeightAuto = false;
-        // 音量オプション
+        // [変換] 音量オプション
         public bool VolumeOption = false;
         public string Volume     = "0";
         public bool   VolumeAuto = false;
         public bool   NoSound    = false;
-        // 切り出しオプション
+        // [変換] 切り出しオプション
         public bool CutOption = false;
         public bool EndSelect = true;
         public string StartPos = "0";
@@ -38,22 +38,22 @@ namespace FFmpegSimpleGUI
         public string Length   = "0";
         public bool FromFirst = false;
         public bool ToLast    = false;
-        // ノイズ除去
+        // [変換] ノイズ除去
         public bool NoiseOption = false;
         public string LmsDelay = "32";
         public string LmsOrder = "128";
         public string LmsLeak  = "0.0005";
         public string LmsMu    = ".5";
-        // 追加オプション
+        // [変換] 追加オプション
         public bool AddOption = false;
         public string AdditionalOption = "";
-        // コンソール表示
+        // [変換] コマンドライン表示
+        public bool ShowCommand = false;
+        // [変換][連結] コンソール表示
         public bool ShowConsole = false;
-        // オプション表示
-        public bool ShowOption = false;
-        // 出力パス (連結)
+        // [連結] 出力パス
         public string OutputPath2 = "";
-        // リエンコードしない (連結)
+        // [連結] リエンコードしない
         public bool NotReencode = false;
 
         // セーブ

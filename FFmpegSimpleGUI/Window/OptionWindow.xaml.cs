@@ -19,7 +19,7 @@ namespace FFmpegSimpleGUI
     /// </summary>
     public partial class OptionWindow : Window
     {
-        public string Option { set; get; }
+        public string Option { set; get; } // 追加オプション
 
         public OptionWindow()
         {

@@ -12,7 +12,7 @@ using System.IO; // Path
 
 namespace FFmpegSimpleGUI
 {
-    // ffmpegプロセス
+    // FFmpegプロセス
     class FFmpegProcess
     {
         // エラー
@@ -21,10 +21,11 @@ namespace FFmpegSimpleGUI
         const int ERROR_FFMPEG_FAILED = 2;
         const int ERROR_INPUT_LIST = 3;
         const int ERROR_UNEXPECTED = 4;
+
         // 終了コード
         private int ExitCode;
 
-        // 時間イベント (処理中の動画の時間位置)
+        // 時間表示イベント (処理中の動画の時間位置)
         public class TimeEventArgs : EventArgs
         {
             public string Time;
@@ -60,8 +61,8 @@ namespace FFmpegSimpleGUI
             return ExecuteFFmpeg(ffmpegOptoin, option.ShowConsole);
         }
 
-        // ffpmegの実行
-        // ffmpegOptoin: ffmpegのオプション
+        // FFpmegの実行
+        // FFmpegOptoin: FFmpegのオプション
         // showConsole: コンソールを表示するか
         private bool ExecuteFFmpeg(string ffmpegOptoin, bool showConsole)
         {
@@ -75,7 +76,7 @@ namespace FFmpegSimpleGUI
                 commandOption = ffmpegOptoin;
             }
 
-            // ffpmegの実行
+            // FFpmegの実行
             try {
                 var p = new Process();
                 if (!showConsole) {
