@@ -221,6 +221,29 @@ namespace FFmpegSimpleGUI
             return option;
         }
 
+        // タブ切替
+        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // [変換]
+            if (tabControl.SelectedIndex == 0)
+            {
+                checkShowCommand.Visibility = Visibility.Visible;
+                buttonCopy.Visibility = Visibility.Visible;
+                textCommand.Visibility = Visibility.Visible;
+
+                checkShowCommand_Checked(null, null);
+            }
+            // [連結]
+            else
+            {
+                checkShowCommand.Visibility = Visibility.Collapsed;
+                buttonCopy.Visibility = Visibility.Collapsed;
+                textCommand.Visibility = Visibility.Collapsed;
+
+                mainGrid.Height = 470;
+            }
+        }
+
         // [変換] 入力ファイル選択
         private void buttonInputPath_Click(object sender, RoutedEventArgs e)
         {
@@ -450,12 +473,12 @@ namespace FFmpegSimpleGUI
         private void checkShowCommand_Checked(object sender, RoutedEventArgs e)
         {
             if ((bool)checkShowCommand.IsChecked) {
-                this.Height = 580;
+                mainGrid.Height = 550;
                 textCommand.Visibility = Visibility.Visible;
                 buttonCopy.IsEnabled = true;
                 ShowCommandLine();
             } else {
-                this.Height = 500;
+                mainGrid.Height = 470;
                 textCommand.Visibility = Visibility.Collapsed;
                 buttonCopy.IsEnabled = false;
             }

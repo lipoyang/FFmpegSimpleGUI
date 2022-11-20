@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FFmpegSimpleGUI"
         mc:Ignorable="d"
-        Title="FFmpegSimpleGUI" Height="580" Width="800" ResizeMode="CanMinimize" Loaded="Window_Loaded" Closing="Window_Closing">
-    <Grid Margin="0,0,0,-2">
+        Title="FFmpegSimpleGUI"  ResizeMode="CanMinimize" Loaded="Window_Loaded" Closing="Window_Closing"
+        SizeToContent="WidthAndHeight">
+    <Grid x:Name="mainGrid" Height="550" Width="800" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="420" Margin="10,10,0,0" VerticalAlignment="Top" Width="770">
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="420" Margin="10,10,0,0" VerticalAlignment="Top" Width="770" SelectionChanged="tabControl_SelectionChanged">
             <TabItem Header="変換">
                 <Grid x:Name="gridConvert" Background="#FFE5E5E5" AllowDrop="True" PreviewDragOver="textInputPath_DragOver" PreviewDrop="textInputPath_Drop">
                     <Grid.RowDefinitions>
