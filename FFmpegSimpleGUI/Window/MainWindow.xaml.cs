@@ -450,12 +450,12 @@ namespace FFmpegSimpleGUI
         private void checkShowCommand_Checked(object sender, RoutedEventArgs e)
         {
             if ((bool)checkShowCommand.IsChecked) {
-                this.Height = 600;
+                this.Height = 580;
                 textCommand.Visibility = Visibility.Visible;
                 buttonCopy.IsEnabled = true;
                 ShowCommandLine();
             } else {
-                this.Height = 530;
+                this.Height = 500;
                 textCommand.Visibility = Visibility.Collapsed;
                 buttonCopy.IsEnabled = false;
             }
