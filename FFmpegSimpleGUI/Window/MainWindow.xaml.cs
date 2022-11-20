@@ -983,12 +983,16 @@ namespace FFmpegSimpleGUI
         // [再生] 動画の初期表示
         private void mediaElement_Init()
         {
-            mediaElement.Source = new Uri(textInputPath.Text, UriKind.Absolute);
-            mediaElement.Stop();
-            isPlaying = false;
+            try {
+                mediaElement.Source = new Uri(textInputPath.Text, UriKind.Absolute);
+                mediaElement.Stop();
+                isPlaying = false;
 
-            // 時間表示
-            labelPlayTime.Content = mediaElement.Position.ToString(@"hh\:mm\:ss\.ff");
+                // 時間表示
+                labelPlayTime.Content = mediaElement.Position.ToString(@"hh\:mm\:ss\.ff");
+            } catch {
+
+            }
         }
         // [再生] 動画を開いたときに長さを取得してシークバーに設定
         private void mediaElement_MediaOpened(object sender, RoutedEventArgs e)

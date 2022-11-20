@@ -8,88 +8,114 @@
         Title="FFmpegSimpleGUI"  ResizeMode="CanMinimize" Loaded="Window_Loaded" Closing="Window_Closing"
         SizeToContent="WidthAndHeight">
     <Grid x:Name="mainGrid" Height="550" Width="800" >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="420" Margin="10,10,0,0" VerticalAlignment="Top" Width="770" SelectionChanged="tabControl_SelectionChanged">
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="780" Height="420"
+            SelectionChanged="tabControl_SelectionChanged">
             <TabItem Header="変換">
                 <Grid x:Name="gridConvert" Background="#FFE5E5E5" AllowDrop="True" PreviewDragOver="textInputPath_DragOver" PreviewDrop="textInputPath_Drop">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="textInputPath" HorizontalAlignment="Left" Height="23" Margin="52,14,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="626" TabIndex="0"/>
-                    <Button x:Name="buttonInputPath" Content="参照" HorizontalAlignment="Left" Margin="683,14,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="75" Click="buttonInputPath_Click" Height="23" TabIndex="1"/>
-                    <Button x:Name="buttonOutputPath" Content="参照" HorizontalAlignment="Left" Margin="683,47,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="75" Click="buttonOutputPath_Click" Height="23" TabIndex="3"/>
-                    <TextBox x:Name="textOutputPath" HorizontalAlignment="Left" Height="23" Margin="52,48,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="626" TabIndex="2"/>
-                    <Label x:Name="label" Content="入力" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.029,0.346"/>
-                    <Label x:Name="label_Copy" Content="出力" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" RenderTransformOrigin="-8.176,1.096"/>
-                    <CheckBox x:Name="checkFrameRate" Content="フレームレート [FPS]" HorizontalAlignment="Left" Margin="378,90,0,0" VerticalAlignment="Top" Checked="checkFrameRate_Checked" Unchecked="checkFrameRate_Checked" TabIndex="4"/>
-                    <CheckBox x:Name="checkResize" Content="リサイズ" HorizontalAlignment="Left" Margin="378,121,0,0" VerticalAlignment="Top" Checked="checkResize_Checked" Unchecked="checkResize_Checked" TabIndex="6"/>
-                    <CheckBox x:Name="checkVolume" Content="音量レベル [dB]" HorizontalAlignment="Left" Margin="378,201,0,0" VerticalAlignment="Top" Checked="checkVolume_Checked" Unchecked="checkVolume_Checked" TabIndex="11"/>
-                    <CheckBox x:Name="checkCut" Content="切り出し" HorizontalAlignment="Left" Margin="378,235,0,0" VerticalAlignment="Top" Checked="checkCut_Checked" Unchecked="checkCut_Checked" TabIndex="15"/>
-                    <TextBox x:Name="textFrameRate" HorizontalAlignment="Left" Height="23" Margin="491,88,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="52" TabIndex="5"/>
-                    <TextBox x:Name="textWidth" HorizontalAlignment="Left" Height="23" Margin="491,121,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="52" RenderTransformOrigin="0.53,1.721" TabIndex="7"/>
-                    <TextBox x:Name="textHeight" HorizontalAlignment="Left" Height="23" Margin="491,150,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="52" TabIndex="9"/>
-                    <TextBox x:Name="textVolume" HorizontalAlignment="Left" Height="23" Margin="490,199,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="52" TabIndex="12" RenderTransformOrigin="1.212,0.826"/>
-                    <CheckBox x:Name="checkWidthAuto" Content="自動" HorizontalAlignment="Left" Margin="563,121,0,0" VerticalAlignment="Top" Checked="checkResize_Checked" Unchecked="checkResize_Checked" TabIndex="8"/>
-                    <CheckBox x:Name="checkHeightAuto" Content="自動" HorizontalAlignment="Left" Margin="563,152,0,0" VerticalAlignment="Top" Checked="checkResize_Checked" Unchecked="checkResize_Checked" TabIndex="10"/>
-                    <CheckBox x:Name="checkVolumeAuto" Content="自動調整" HorizontalAlignment="Left" Margin="563,201,0,0" VerticalAlignment="Top" Checked="checkVolume_Checked" Unchecked="checkVolume_Checked" TabIndex="13"/>
-                    <CheckBox x:Name="checkNoSound" Content="音声無し" HorizontalAlignment="Left" Margin="658,201,0,0" VerticalAlignment="Top" Checked="checkVolume_Checked" Unchecked="checkVolume_Checked" TabIndex="14"/>
-                    <RadioButton x:Name="radioEndPos" Content="終了 [秒]" HorizontalAlignment="Left" Margin="442,267,0,0" VerticalAlignment="Top" Checked="checkCut_Checked" Unchecked="checkCut_Checked" TabIndex="18"/>
-                    <RadioButton x:Name="radioLength" Content="長さ  [秒]" HorizontalAlignment="Left" Margin="442,291,0,0" VerticalAlignment="Top" Checked="checkCut_Checked" Unchecked="checkCut_Checked" TabIndex="19" RenderTransformOrigin="0.744,0.067"/>
-                    <Label x:Name="label1" Content="開始 [秒]" HorizontalAlignment="Left" Margin="456,229,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textStartPos" HorizontalAlignment="Left" Height="23" Margin="518,232,0,0" TextWrapping="Wrap" Text="00:00:00.000" VerticalAlignment="Top" Width="81" RenderTransformOrigin="2.258,8.308" TabIndex="16"/>
-                    <TextBox x:Name="textEndPos" HorizontalAlignment="Left" Height="23" Margin="518,261,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="81" RenderTransformOrigin="2.258,8.308" TabIndex="20"/>
-                    <TextBox x:Name="textLength" HorizontalAlignment="Left" Height="23" Margin="518,289,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="81" RenderTransformOrigin="2.258,8.308" TabIndex="22"/>
-                    <CheckBox x:Name="checkFromFirst" Content="最初から" HorizontalAlignment="Left" Margin="616,267,0,0" VerticalAlignment="Top" Checked="checkCut_Checked" Unchecked="checkCut_Checked" TabIndex="17"/>
-                    <CheckBox x:Name="checkToLast" Content="最後まで" HorizontalAlignment="Left" Margin="616,291,0,0" VerticalAlignment="Top" Checked="checkCut_Checked" Unchecked="checkCut_Checked" TabIndex="21"/>
-                    <Button x:Name="buttonConvert" Content="変換" HorizontalAlignment="Left" Margin="10,354,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="75" Click="buttonConvert_Click" Height="23" RenderTransformOrigin="0.363,-1.287" TabIndex="30"/>
-                    <CheckBox x:Name="checkNoise" Content="ノイズ除去" HorizontalAlignment="Left" Margin="378,329,0,0" VerticalAlignment="Top" Checked="checkNoise_Checked" Unchecked="checkNoise_Checked" TabIndex="23"/>
-                    <Button x:Name="buttonNoise" Content="詳細" HorizontalAlignment="Left" Margin="491,326,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="75" Click="buttonNoise_Click" Height="23" TabIndex="24"/>
-                    <CheckBox x:Name="checkOption" Content="追加オプション" HorizontalAlignment="Left" Margin="378,357,0,0" VerticalAlignment="Top" Checked="checkOption_Checked" Unchecked="checkOption_Checked" TabIndex="25"/>
-                    <Button x:Name="buttonOption" Content="設定" HorizontalAlignment="Left" Margin="491,354,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="75" Click="buttonOption_Click" Height="23" TabIndex="25" RenderTransformOrigin="0.467,1.522"/>
-                    <Slider x:Name="seekBar" HorizontalAlignment="Left" Margin="10,275,0,0" VerticalAlignment="Top" Width="325" TabIndex="36" ValueChanged="seekBar_ValueChanged" PreviewMouseLeftButtonDown="seekBar_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="seekBar_PreviewMouseLeftButtonUp"/>
-                    <Button x:Name="buttonPlay" HorizontalAlignment="Left" Margin="10,298,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="26" Click="buttonPlay_Click" Height="23" RenderTransformOrigin="0.679,2.229" TabIndex="31">
+                    <Label Content="入力" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" />
+                    <Label Content="出力" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,44,0,0" />
+                    <TextBox x:Name="textInputPath" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="52,14,0,0" Width="626" Height="23" TabIndex="0"/>
+                    <Button x:Name="buttonInputPath" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="683,14,0,0" Width="75" Height="23" TabIndex="1"
+                        Content="参照" Click="buttonInputPath_Click"/>
+                    <TextBox x:Name="textOutputPath" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="52,48,0,0" Width="626" Height="23" TabIndex="2"/>
+                    <Button x:Name="buttonOutputPath" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="683,47,0,0" Width="75" Height="23" TabIndex="3" 
+                        Content="参照" Click="buttonOutputPath_Click" />
+                    <CheckBox x:Name="checkFrameRate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="378,90,0,0" TabIndex="4"
+                        Content="フレームレート [FPS]" Checked="checkFrameRate_Checked" Unchecked="checkFrameRate_Checked" />
+                    <CheckBox x:Name="checkResize" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="378,121,0,0" TabIndex="6"
+                        Content="リサイズ" Checked="checkResize_Checked" Unchecked="checkResize_Checked" />
+                    <CheckBox x:Name="checkVolume" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="378,201,0,0" TabIndex="11"
+                        Content="音量レベル [dB]" Checked="checkVolume_Checked" Unchecked="checkVolume_Checked" />
+                    <CheckBox x:Name="checkCut" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="378,235,0,0" TabIndex="15"
+                        Content="切り出し" Checked="checkCut_Checked" Unchecked="checkCut_Checked" />
+                    <TextBox x:Name="textFrameRate" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="491,88,0,0" Width="52" Height="23" TabIndex="5"/>
+                    <TextBox x:Name="textWidth" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="491,121,0,0" Width="52" Height="23" TabIndex="7"/>
+                    <TextBox x:Name="textHeight" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="491,150,0,0" Width="52" Height="23" TabIndex="9"/>
+                    <TextBox x:Name="textVolume" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="490,199,0,0" Width="52" Height="23" TabIndex="12" />
+                    <CheckBox x:Name="checkWidthAuto" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="563,121,0,0" TabIndex="8"
+                        Content="自動" Checked="checkResize_Checked" Unchecked="checkResize_Checked" />
+                    <CheckBox x:Name="checkHeightAuto" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="563,152,0,0" TabIndex="10"
+                        Content="自動" Checked="checkResize_Checked" Unchecked="checkResize_Checked" />
+                    <CheckBox x:Name="checkVolumeAuto" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="563,201,0,0" TabIndex="13"
+                        Content="自動調整" Checked="checkVolume_Checked" Unchecked="checkVolume_Checked" />
+                    <CheckBox x:Name="checkNoSound" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="658,201,0,0" TabIndex="14"
+                        Content="音声無し" Checked="checkVolume_Checked" Unchecked="checkVolume_Checked" />
+                    <RadioButton x:Name="radioEndPos" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="442,267,0,0" TabIndex="18"
+                        Content="終了 [秒]" Checked="checkCut_Checked" Unchecked="checkCut_Checked" />
+                    <RadioButton x:Name="radioLength" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="442,291,0,0" TabIndex="19" 
+                        Content="長さ  [秒]" Checked="checkCut_Checked" Unchecked="checkCut_Checked" />
+                    <Label Content="開始 [秒]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="456,229,0,0"/>
+                    <TextBox x:Name="textStartPos" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="518,232,0,0" Width="81" Height="23" TabIndex="16"
+                        Text="00:00:00.000" />
+                    <TextBox x:Name="textEndPos" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="518,261,0,0" Width="81" Height="23" TabIndex="20"/>
+                    <TextBox x:Name="textLength" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="518,289,0,0" Width="81" Height="23" TabIndex="22"/>
+                    <CheckBox x:Name="checkFromFirst" HorizontalAlignment="Left" Margin="616,267,0,0" VerticalAlignment="Top" TabIndex="17"
+                        Content="最初から" Checked="checkCut_Checked" Unchecked="checkCut_Checked" />
+                    <CheckBox x:Name="checkToLast" HorizontalAlignment="Left" Margin="616,291,0,0" VerticalAlignment="Top" TabIndex="21"
+                        Content="最後まで" Checked="checkCut_Checked" Unchecked="checkCut_Checked" />
+                    <Button x:Name="buttonConvert" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,354,0,0" Width="75" Height="23" TabIndex="30"
+                        Content="変換" Click="buttonConvert_Click" />
+                    <CheckBox x:Name="checkNoise" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="378,329,0,0" TabIndex="23"
+                        Content="ノイズ除去" Checked="checkNoise_Checked" Unchecked="checkNoise_Checked" />
+                    <Button x:Name="buttonNoise" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="491,326,0,0" Width="75" Height="23" TabIndex="24"
+                        Content="詳細" Click="buttonNoise_Click" />
+                    <CheckBox x:Name="checkOption" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="378,357,0,0" TabIndex="25"
+                        Content="追加オプション" Checked="checkOption_Checked" Unchecked="checkOption_Checked" />
+                    <Button x:Name="buttonOption" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="491,354,0,0" Width="75" Height="23" TabIndex="25"
+                        Content="設定" Click="buttonOption_Click" />
+                    <Slider x:Name="seekBar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,275,0,0" Width="325" TabIndex="36" 
+                        ValueChanged="seekBar_ValueChanged" 
+                        PreviewMouseLeftButtonDown="seekBar_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="seekBar_PreviewMouseLeftButtonUp"/>
+                    <Button x:Name="buttonPlay" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,298,0,0" Width="26" Height="23" TabIndex="31"
+                        Click="buttonPlay_Click">
                         <Image Source="..\Icon\play.png"></Image>
                     </Button>
-                    <Button x:Name="buttonPause" HorizontalAlignment="Left" Margin="41,298,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="26" Click="buttonPause_Click" Height="23" RenderTransformOrigin="2.849,0.685" TabIndex="32">
+                    <Button x:Name="buttonPause" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="41,298,0,0" Width="26" Height="23" TabIndex="32"
+                        Click="buttonPause_Click">
                         <Image Source="..\Icon\pause.png"></Image>
                     </Button>
-                    <Button x:Name="buttonPrevFrame" HorizontalAlignment="Left" Margin="103,298,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="26" Click="buttonPrevFrame_Click" Height="23" RenderTransformOrigin="2.849,0.685" TabIndex="34">
+                    <Button x:Name="buttonPrevFrame" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,298,0,0" Width="26" Height="23" TabIndex="34"
+                        Click="buttonPrevFrame_Click">
                         <Image Source="..\Icon\prev.png"></Image>
                     </Button>
-                    <Button x:Name="buttonNextFrame" HorizontalAlignment="Left" Margin="134,298,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="26" Click="buttonNextFrame_Click" Height="23" RenderTransformOrigin="2.849,0.685" TabIndex="35">
+                    <Button x:Name="buttonNextFrame" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="134,298,0,0" Width="26" Height="23" TabIndex="35"
+                        Click="buttonNextFrame_Click">
                         <Image Source="..\Icon\next.png"></Image>
                     </Button>
-                    <Button x:Name="buttonStop" HorizontalAlignment="Left" Margin="72,298,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="26" Click="buttonStop_Click" Height="23" RenderTransformOrigin="2.849,0.685" TabIndex="33">
+                    <Button x:Name="buttonStop" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="72,298,0,0" Width="26" Height="23" TabIndex="33"
+                        Click="buttonStop_Click">
                         <Image Source="..\Icon\stop.png"></Image>
                     </Button>
-                    <Label x:Name="labelPlayTime" Content="00:00:00.00 / 00:00:00.00" HorizontalAlignment="Left" Margin="170,295,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.929,0.368" Width="165"/>
-                    <Label x:Name="label2_Copy1" Content="幅" HorizontalAlignment="Left" Margin="457,119,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.929,0.368" Width="28"/>
-                    <Label x:Name="label2_Copy2" Content="高さ" HorizontalAlignment="Left" Margin="457,147,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.929,0.368" Width="33"/>
-                    <MediaElement x:Name="mediaElement" HorizontalAlignment="Left" Height="180" Margin="10,90,0,0" VerticalAlignment="Top" Width="320" MediaOpened="mediaElement_MediaOpened"/>
+                    <Label x:Name="labelPlayTime" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="170,295,0,0" Width="165"
+                        Content="00:00:00.00 / 00:00:00.00" />
+                    <Label Content="幅" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="457,119,0,0" Width="28"/>
+                    <Label Content="高さ" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="457,147,0,0" Width="33"/>
+                    <MediaElement x:Name="mediaElement" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0" Width="320" Height="180"
+                        MediaOpened="mediaElement_MediaOpened"/>
                 </Grid>
             </TabItem>
             <TabItem Header="連結">
                 <Grid x:Name="gridConcat" Background="#FFE5E5E5" PreviewDragOver="dataGrid_PreviewDragOver" PreviewDrop="dataGrid_PreviewDrop" AllowDrop="True">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Label x:Name="label3" Content="入力" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.455,-0.469" Height="26" Width="47"/>
-                    <Label x:Name="label3_Copy" Content="出力" HorizontalAlignment="Left" Margin="10,310,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.455,-0.469" Height="26" Width="47"/>
-                    <TextBox x:Name="textOutputPath2" HorizontalAlignment="Left" Height="23" Margin="57,314,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="617" TabIndex="1"/>
-                    <Button x:Name="buttonOutputPath2" Content="参照" HorizontalAlignment="Left" Margin="679,314,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="75" Click="buttonOutputPath2_Click" Height="23" TabIndex="2"/>
-                    <Button x:Name="buttonBefore" Content="前へ" HorizontalAlignment="Left" Margin="221,13,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="54" Click="buttonBefore_Click" Height="23" TabIndex="3" RenderTransformOrigin="0.204,0.043"/>
-                    <Button x:Name="buttonAfter" Content="後へ" HorizontalAlignment="Left" Margin="280,13,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="54" Click="buttonAfter_Click" Height="23" TabIndex="4" RenderTransformOrigin="-5.809,0.58"/>
-                    <Button x:Name="buttonAdd" Content="追加" HorizontalAlignment="Left" Margin="103,13,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="54" Click="buttonAdd_Click" Height="23" TabIndex="5" RenderTransformOrigin="-5.389,-0.246"/>
-                    <Button x:Name="buttonDel" Content="削除" HorizontalAlignment="Left" Margin="162,13,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="54" Click="buttonDel_Click" Height="23" TabIndex="6"/>
-                    <CheckBox x:Name="checkNotReencode" Content="再エンコードしない (全て同一コーデックの動画に限る)" HorizontalAlignment="Left" Margin="489,16,0,0" VerticalAlignment="Top" TabIndex="7"/>
-                    <Button x:Name="buttonConcat" Content="連結" HorizontalAlignment="Left" Margin="10,351,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="75" Click="buttonConcat_Click" Height="23" TabIndex="7"/>
-                    <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="248" Margin="10,50,0,0" VerticalAlignment="Top" Width="744"
-                        AutoGenerateColumns="False" IsReadOnly="True" CanUserSortColumns="False" VerticalScrollBarVisibility="Visible" CanUserResizeRows="False" CanUserReorderColumns="False" >
+                    <Label Content="入力" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Height="26" Width="47"/>
+                    <Label Content="出力" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,310,0,0" Height="26" Width="47"/>
+                    <TextBox x:Name="textOutputPath2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="57,314,0,0" Width="617" Height="23" TabIndex="1"/>
+                    <Button x:Name="buttonOutputPath2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="679,314,0,0" Width="75" Height="23" TabIndex="2"
+                         Content="参照" Click="buttonOutputPath2_Click"/>
+                    <Button x:Name="buttonBefore" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="221,13,0,0" Width="54" Height="23" TabIndex="3"
+                         Content="前へ" Click="buttonBefore_Click"/>
+                    <Button x:Name="buttonAfter" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="280,13,0,0" Width="54" Height="23" TabIndex="4"
+                         Content="後へ" Click="buttonAfter_Click" />
+                    <Button x:Name="buttonAdd" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,13,0,0" Width="54" Height="23" TabIndex="5"
+                         Content="追加" Click="buttonAdd_Click"/>
+                    <Button x:Name="buttonDel" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="162,13,0,0" Width="54" Height="23" TabIndex="6"
+                         Content="削除" Click="buttonDel_Click"/>
+                    <CheckBox x:Name="checkNotReencode" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="489,16,0,0" TabIndex="7"
+                         Content="再エンコードしない (全て同一コーデックの動画に限る)" />
+                    <Button x:Name="buttonConcat" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,351,0,0" Width="75" Height="23" TabIndex="7"
+                         Content="連結" Click="buttonConcat_Click"/>
+                    <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,50,0,0" Width="744" Height="248"
+                        AutoGenerateColumns="False" IsReadOnly="True" VerticalScrollBarVisibility="Visible" 
+                        CanUserSortColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ファイル名" Binding="{Binding FileName}" Width="300"/>
                             <DataGridTextColumn Header="フォルダ名" Binding="{Binding DirName}" Width="430"/>
@@ -98,11 +124,15 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Height="23" Margin="151,439,0,0" VerticalAlignment="Top" Width="180" RenderTransformOrigin="0.494,-0.3"/>
-        <Label x:Name="labelProgress" Content="変換中" HorizontalAlignment="Left" Margin="347,436,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.929,0.368" Width="102" Height="27"/>
-        <TextBox x:Name="textCommand" HorizontalAlignment="Left" Height="68" Margin="10,468,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="775" IsReadOnly="True" VerticalScrollBarVisibility="Auto" IsTabStop="False"/>
-        <CheckBox x:Name="checkConsole" Content="コンソールを表示する" HorizontalAlignment="Left" Margin="10,439,0,0" VerticalAlignment="Top" Checked="checkConsole_Checked" Unchecked="checkConsole_Checked" TabIndex="27" RenderTransformOrigin="0.474,1.333"/>
-        <Button x:Name="buttonCopy" Content="コピー" HorizontalAlignment="Left" Margin="705,439,0,0" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="75" Height="23" RenderTransformOrigin="0.363,-1.287" Click="buttonCopy_Click" TabIndex="29"/>
-        <CheckBox x:Name="checkShowCommand" Content="コマンドを表示する" HorizontalAlignment="Left" Margin="580,442,0,0" VerticalAlignment="Top" Checked="checkShowCommand_Checked" Unchecked="checkShowCommand_Checked" TabIndex="28" RenderTransformOrigin="0.421,-1"/>
+        <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="151,439,0,0" Width="180" Height="23"/>
+        <Label x:Name="labelProgress" Content="変換中" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="347,436,0,0" Width="102" Height="27"/>
+        <TextBox x:Name="textCommand" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,468,0,0" Width="780" Height="68" 
+            IsReadOnly="True" VerticalScrollBarVisibility="Auto" IsTabStop="False"/>
+        <CheckBox x:Name="checkConsole" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,439,0,0" TabIndex="27"
+             Content="コンソールを表示する" Checked="checkConsole_Checked" Unchecked="checkConsole_Checked"/>
+        <Button x:Name="buttonCopy" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="705,439,0,0" Width="75" Height="23" TabIndex="29"
+             Content="コピー" Click="buttonCopy_Click"/>
+        <CheckBox x:Name="checkShowCommand" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="580,442,0,0" TabIndex="28"
+             Content="コマンドを表示する" Checked="checkShowCommand_Checked" Unchecked="checkShowCommand_Checked"/>
     </Grid>
 </Window>
