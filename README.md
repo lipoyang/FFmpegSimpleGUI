@@ -7,4 +7,10 @@
 * ffmpeg.exe にパスが通っていることが前提です。
 * Visual Studi 2019 / C# で作成したWPFアプリです。
 
+[変換] の画面
+![画面1](screenshot/image1.png)
+
+[連結] の画面
+![画面2](screenshot/image2.png)
+
 
