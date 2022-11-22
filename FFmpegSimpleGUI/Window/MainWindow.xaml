@@ -130,7 +130,7 @@
                         CanUserSortColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ファイル名" Binding="{Binding FileName}" Width="300"/>
-                            <DataGridTextColumn Header="フォルダ名" Binding="{Binding DirName}" Width="430"/>
+                            <DataGridTextColumn Header="フォルダ名" Binding="{Binding DirName}" Width="440"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
