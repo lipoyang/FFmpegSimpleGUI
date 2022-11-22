@@ -26,7 +26,7 @@ namespace FFmpegSimpleGUI
             InitializeComponent();
         }
 
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             textOption.Text = Option;
         }
