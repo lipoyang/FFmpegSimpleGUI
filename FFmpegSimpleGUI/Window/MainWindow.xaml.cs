@@ -897,7 +897,7 @@ namespace FFmpegSimpleGUI
 
             // 時間表示
             TimeSpan ts = mediaElement.Position;
-            labelPlayTime.Content = ts.ToString(@"hh\:mm\:ss\.ff");
+            labelPlayTime.Content = TimePositionString();
         }
 
         // [再生] 停止
@@ -909,7 +909,7 @@ namespace FFmpegSimpleGUI
 
             TimeSpan ts = TimeSpan.FromSeconds(0);
             mediaElement.Position = ts;
-            labelPlayTime.Content = ts.ToString(@"hh\:mm\:ss\.ff");
+            labelPlayTime.Content = TimePositionString();
             seekBar.Value = 0;
         }
 
@@ -925,7 +925,7 @@ namespace FFmpegSimpleGUI
             mediaElement.Position = ts;
 
             // 時間表示
-            labelPlayTime.Content = ts.ToString(@"hh\:mm\:ss\.ff");
+            labelPlayTime.Content = TimePositionString();
         }
 
         // [再生] コマ送り
@@ -941,7 +941,7 @@ namespace FFmpegSimpleGUI
             mediaElement.Position = ts;
 
             // 時間表示
-            labelPlayTime.Content = ts.ToString(@"hh\:mm\:ss\.ff");
+            labelPlayTime.Content = TimePositionString();
         }
 
 
@@ -966,7 +966,7 @@ namespace FFmpegSimpleGUI
                 mediaElement.Position = ts;
 
                 // 時間表示
-                labelPlayTime.Content = ts.ToString(@"hh\:mm\:ss\.ff");
+                labelPlayTime.Content = TimePositionString();
             }
         }
 
@@ -977,7 +977,7 @@ namespace FFmpegSimpleGUI
             seekBar.Value = mediaElement.Position.TotalSeconds;
 
             // 時間表示
-            labelPlayTime.Content = mediaElement.Position.ToString(@"hh\:mm\:ss\.ff");
+            labelPlayTime.Content = TimePositionString();
         }
 
         // [再生] 動画の初期表示
@@ -987,12 +987,10 @@ namespace FFmpegSimpleGUI
                 mediaElement.Source = new Uri(textInputPath.Text, UriKind.Absolute);
                 mediaElement.Stop();
                 isPlaying = false;
-
-                // 時間表示
-                labelPlayTime.Content = mediaElement.Position.ToString(@"hh\:mm\:ss\.ff");
             } catch {
-
+                ;
             }
+            labelPlayTime.Content = "";
         }
         // [再生] 動画を開いたときに長さを取得してシークバーに設定
         private void mediaElement_MediaOpened(object sender, RoutedEventArgs e)
@@ -1005,10 +1003,30 @@ namespace FFmpegSimpleGUI
                 seekBar.SmallChange = 1;
                 seekBar.LargeChange = Math.Min(10, ts.TotalSeconds / 10);
 
+                // 時間表示
+                labelPlayTime.Content = TimePositionString();
+
                 // おまじない
                 mediaElement.Play ();
                 mediaElement.Pause();
             }
+        }
+        // [再生] 時間位置表示
+        private string TimePositionString()
+        {
+            string format;
+            var ts = mediaElement.NaturalDuration.TimeSpan;
+            if(ts.TotalSeconds >= 60 * 60) {
+                format = @"hh\:mm\:ss\.ff";
+            } else {
+                format = @"mm\:ss\.ff";
+            }
+
+            string pos =
+                mediaElement.Position.ToString(format)
+                + " / " +
+                mediaElement.NaturalDuration.TimeSpan.ToString(format);
+            return pos;
         }
     }
 }
