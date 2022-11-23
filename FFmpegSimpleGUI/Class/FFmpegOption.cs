@@ -87,6 +87,14 @@ namespace FFmpegSimpleGUI
         {
             List<string> options = new List<string>();
 
+            // 切り出し (開始位置)
+            string strCut1 = "";
+            if (CutOption) {
+                string start = FromFirst ? "0" : StartPos;
+                strCut1 = "-ss " + start;
+            }
+            options.Add(strCut1);
+
             // 入力ファイル
             string strInputPath = InputPath.Trim();
             if(strInputPath.IndexOf(" ") >= 0) {
@@ -126,21 +134,20 @@ namespace FFmpegSimpleGUI
             }
             options.Add(strVolume);
 
-            // 切り出し
-            string strCut = "";
+            // 切り出し (終了位置 or 長さ)
+            string strCut2 = "";
             if (CutOption) {
-                string start = FromFirst ? "0" : StartPos;
                 if (EndSelect) {
                     if (ToLast) {
-                        strCut = "-ss " + start;
+                        strCut2 = "";
                     } else {
-                        strCut = "-ss " + start + " -to " + EndPos;
+                        strCut2 = "-to " + EndPos;
                     }
                 } else {
-                    strCut = "-ss " + start + " -t " + Length;
+                    strCut2 = "-t " + Length;
                 }
             }
-            options.Add(strCut);
+            options.Add(strCut2);
 
             // ノイズ除去
             string strNoise = "";
