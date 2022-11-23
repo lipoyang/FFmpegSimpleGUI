@@ -130,9 +130,12 @@ namespace FFmpegSimpleGUI
             string strCut = "";
             if (CutOption) {
                 string start = FromFirst ? "0" : StartPos;
-                string end   = ToLast ? "0" : EndPos;
                 if (EndSelect) {
-                    strCut = "-ss " + start + " -to " + end;
+                    if (ToLast) {
+                        strCut = "-ss " + start;
+                    } else {
+                        strCut = "-ss " + start + " -to " + EndPos;
+                    }
                 } else {
                     strCut = "-ss " + start + " -t " + Length;
                 }
