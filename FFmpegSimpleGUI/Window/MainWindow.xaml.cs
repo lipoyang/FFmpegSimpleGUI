@@ -269,6 +269,8 @@ namespace FFmpegSimpleGUI
 
                 // 動画の表示
                 mediaElement_Init();
+
+                ShowCommandLine();
             }
         }
 
@@ -288,6 +290,8 @@ namespace FFmpegSimpleGUI
 
                 // 動画の表示
                 mediaElement_Init();
+
+                ShowCommandLine();
             }
         }
 
@@ -317,6 +321,8 @@ namespace FFmpegSimpleGUI
             if (dialog.ShowDialog() == true)
             {
                 textOutputPath.Text = dialog.FileName;
+
+                ShowCommandLine();
             }
         }
 
