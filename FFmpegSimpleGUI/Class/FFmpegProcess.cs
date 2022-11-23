@@ -128,10 +128,10 @@ namespace FFmpegSimpleGUI
         {
             // hh:mm:ss.xx の形式に一致する文字列があればイベント発行
             if (e.Data == null) return;
-            var match = Regex.Match(e.Data, @"[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{2}");
+            var match = Regex.Match(e.Data, @"time=[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{2}");
             if (match.Success)
             {
-                string time = match.Value;
+                string time = match.Value.Remove(0,5);
                 var timeEvent = new TimeEventArgs(time);
                 TimeChanged(this, timeEvent);
             }
