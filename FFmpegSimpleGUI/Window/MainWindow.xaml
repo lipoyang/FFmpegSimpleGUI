@@ -49,20 +49,20 @@
 
                     <CheckBox x:Name="checkCut" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="378,210,0,0"
                         Content="切り出し" Checked="checkCut_Checked" Unchecked="checkCut_Checked" />
-                    <Label Content="開始 [秒]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="456,204,0,0"/>
+                    <Label Content="開始" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="456,204,0,0"/>
                     <TextBox x:Name="textStartPos" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="526,210,0,0" Width="100" Height="23"
                         Text="00:00:00.000" />
                     <CheckBox x:Name="checkFromFirst" HorizontalAlignment="Left" Margin="640,214,0,0" VerticalAlignment="Top"
                         Content="最初から" Checked="checkCut_Checked" Unchecked="checkCut_Checked" />
 
                     <RadioButton x:Name="radioEndPos" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="442,240,0,0"
-                        Content="終了 [秒]" Checked="checkCut_Checked" Unchecked="checkCut_Checked" />
+                        Content="終了" Checked="checkCut_Checked" Unchecked="checkCut_Checked" />
                     <TextBox x:Name="textEndPos" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="526,240,0,0" Width="102" Height="23" />
                     <CheckBox x:Name="checkToLast" HorizontalAlignment="Left" Margin="640,244,0,0" VerticalAlignment="Top"
                         Content="最後まで" Checked="checkCut_Checked" Unchecked="checkCut_Checked" />
 
                     <RadioButton x:Name="radioLength" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="442,270,0,0" 
-                        Content="長さ  [秒]" Checked="checkCut_Checked" Unchecked="checkCut_Checked" />
+                        Content="長さ" Checked="checkCut_Checked" Unchecked="checkCut_Checked" />
                     <TextBox x:Name="textLength" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="526,270,0,0" Width="102" Height="23"/>
 
                     <CheckBox x:Name="checkNoise" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="378,300,0,0"
