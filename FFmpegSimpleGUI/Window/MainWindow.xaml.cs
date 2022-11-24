@@ -43,6 +43,9 @@ namespace FFmpegSimpleGUI
         private string LmsOrder = "";
         private string LmsLeak = "";
         private string LmsMu = "";
+        
+        // [変換][連結] ファイルのドラッグ&ドロップフラグ
+        private bool isDragDrop = false;
 
         // [再生] タイマ
         private DispatcherTimer TickTimer;
@@ -280,9 +283,11 @@ namespace FFmpegSimpleGUI
             e.Effects = (e.Data.GetDataPresent(DataFormats.FileDrop)) ?
                 DragDropEffects.Copy : DragDropEffects.None;
             e.Handled = true;
+            isDragDrop = true;
         }
         private void textInputPath_Drop(object sender, DragEventArgs e)
         {
+            if(isDragDrop == false) return;
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] paths = ((string[])e.Data.GetData(DataFormats.FileDrop));
@@ -323,6 +328,29 @@ namespace FFmpegSimpleGUI
                 textOutputPath.Text = dialog.FileName;
 
                 ShowCommandLine();
+            }
+        }
+
+        // [変換] 出力ファイルのドラッグ＆ドロップ
+        private void textOutputPath_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effects = (e.Data.GetDataPresent(DataFormats.FileDrop)) ?
+                DragDropEffects.Copy : DragDropEffects.None;
+            e.Handled = true;
+        }
+        private void textOutputPath_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] paths = ((string[])e.Data.GetData(DataFormats.FileDrop));
+                textOutputPath.Text = paths[0];
+
+                // 動画の表示
+                mediaElement_Init();
+
+                ShowCommandLine();
+
+                isDragDrop = false;
             }
         }
 
@@ -801,14 +829,16 @@ namespace FFmpegSimpleGUI
         }
 
         // [連結] 動画ファイルのドラッグ＆ドロップ
-        private void dataGrid_PreviewDragOver(object sender, DragEventArgs e)
+        private void dataGrid_DragOver(object sender, DragEventArgs e)
         {
             e.Effects = (e.Data.GetDataPresent(DataFormats.FileDrop)) ?
                 DragDropEffects.Copy : DragDropEffects.None;
             e.Handled = true;
+            isDragDrop = true;
         }
-        private void dataGrid_PreviewDrop(object sender, DragEventArgs e)
+        private void dataGrid_Drop(object sender, DragEventArgs e)
         {
+            if(isDragDrop == false) return;
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] paths = ((string[])e.Data.GetData(DataFormats.FileDrop));
@@ -842,6 +872,24 @@ namespace FFmpegSimpleGUI
             if (dialog.ShowDialog() == true)
             {
                 textOutputPath2.Text = dialog.FileName;
+            }
+        }
+
+        // [連結] 出力ファイルのドラッグ＆ドロップ
+        private void textOutputPath2_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effects = (e.Data.GetDataPresent(DataFormats.FileDrop)) ?
+                DragDropEffects.Copy : DragDropEffects.None;
+            e.Handled = true;
+        }
+        private void textOutputPath2_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] paths = ((string[])e.Data.GetData(DataFormats.FileDrop));
+                textOutputPath2.Text = paths[0];
+
+                isDragDrop = false;
             }
         }
 

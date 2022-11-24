@@ -11,7 +11,7 @@
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="780" Height="420"
             SelectionChanged="tabControl_SelectionChanged">
             <TabItem Header="変換">
-                <Grid x:Name="gridConvert" Background="#FFE5E5E5" AllowDrop="True" PreviewDragOver="textInputPath_DragOver" PreviewDrop="textInputPath_Drop">
+                <Grid x:Name="gridConvert" Background="#FFE5E5E5" AllowDrop="True" PreviewDragOver="textInputPath_DragOver" Drop="textInputPath_Drop">
 
                     <Label Content="入力" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" />
                     <TextBox x:Name="textInputPath" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="52,14,0,0" Width="632" Height="23"/>
@@ -19,7 +19,8 @@
                         Content="参照" Click="buttonInputPath_Click"/>
 
                     <Label Content="出力" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,44,0,0" />
-                    <TextBox x:Name="textOutputPath" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="52,48,0,0" Width="632" Height="23"/>
+                    <TextBox x:Name="textOutputPath" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="52,48,0,0" Width="632" Height="23"
+                        PreviewDragOver="textOutputPath_DragOver" PreviewDrop="textOutputPath_Drop"/>
                     <Button x:Name="buttonOutputPath" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="689,48,0,0" Width="75" Height="23" 
                         Content="参照" Click="buttonOutputPath_Click" />
 
@@ -112,7 +113,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="連結">
-                <Grid x:Name="gridConcat" Background="#FFE5E5E5" PreviewDragOver="dataGrid_PreviewDragOver" PreviewDrop="dataGrid_PreviewDrop" AllowDrop="True">
+                <Grid x:Name="gridConcat" Background="#FFE5E5E5" PreviewDragOver="dataGrid_DragOver" Drop="dataGrid_Drop" AllowDrop="True">
                     <Label Content="入力" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Height="26" Width="47"/>
                     <Button x:Name="buttonAdd" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="103,13,0,0" Width="54" Height="23"
                          Content="追加" Click="buttonAdd_Click"/>
@@ -135,7 +136,8 @@
                     </DataGrid>
 
                     <Label Content="出力" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,310,0,0" Height="26" Width="47"/>
-                    <TextBox x:Name="textOutputPath2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="57,314,0,0" Width="627" Height="23"/>
+                    <TextBox x:Name="textOutputPath2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="57,314,0,0" Width="627" Height="23"
+                         PreviewDragOver="textOutputPath2_DragOver" PreviewDrop="textOutputPath2_Drop"/>
                     <Button x:Name="buttonOutputPath2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="689,314,0,0" Width="75" Height="23"
                          Content="参照" Click="buttonOutputPath2_Click"/>
 
